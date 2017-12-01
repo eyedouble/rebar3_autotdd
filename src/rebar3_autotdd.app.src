@@ -1,0 +1,21 @@
+
+{application, rebar3_autotdd,
+    [{description, "Rebar3 plugin for auto compiling and testing on changes"},
+    {vsn, "0.0.2"},
+    {registered, []},   
+    {applications,
+        [kernel,
+        stdlib,
+        enotify
+        ]},
+    {env,[]},
+    {modules, []},
+    {maintainers, []},
+    {licenses, ["MIT"]},
+    {links, [
+        {"eyedouble",
+        "https://eyedouble.nl"},
+        {"Github",
+        "https://github.com/eyedouble/rebar3_autotdd"}
+    ]}
+]}.
