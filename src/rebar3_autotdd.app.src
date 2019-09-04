@@ -1,7 +1,7 @@
 
 {application, rebar3_autotdd,
     [{description, "Rebar3 plugin for auto compiling and testing on changes"},
-    {vsn, "0.0.2"},
+    {vsn, "1.0.0"},
     {registered, []},   
     {applications,
         [kernel,
