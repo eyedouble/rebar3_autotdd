@@ -10,7 +10,6 @@
         ]},
     {env,[]},
     {modules, []},
-    {maintainers, []},
     {licenses, ["MIT"]},
     {links, [
         {"eyedouble",
