@@ -1,6 +1,6 @@
-# CouchDB
+# Rebar3
 
-[![License](https://img.shields.io/github/license/eyedouble/reabr3_autotdd?color=007ec6&style=flat-square)](LICENSE)
+[![License](https://img.shields.io/github/license/eyedouble/rebar3_autotdd?color=007ec6&style=flat-square)](LICENSE)
 
 **A rebar3 plugin for auto running compile on source file change reloading modules in the shell.** 
 
