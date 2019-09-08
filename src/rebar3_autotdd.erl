@@ -25,6 +25,11 @@
 -define(PROVIDER, autotdd).
 -define(DEPS, [compile, eunit]).
 
+-define(PRINT(Var), io:format("DEBUG: ~p:~p - ~p~n~n ~p~n~n", [?MODULE, ?LINE, ??Var, Var])).
+
+-define(LEADER, "\n\e[97m\e[46m\e[1m Autotdd \n\e[0m\e[40m").
+-define(ANSI(Text, Color, Bg), "\e["++ Bg ++"m\e["++ Color ++"m" ++ Text ++ " \n\e[0m\e[40m\n").
+
 %% ===================================================================
 %% Public API
 %% ===================================================================
@@ -90,16 +95,30 @@ auto() ->
                     IsValid = lists:member(Ext, ?VALID_EXTENSIONS),
                     case IsValid of
                         false -> pass;
-                        true ->
-                            % sleep here so messages can bottle up
-                            % or we can flush after compile?
-                            timer:sleep(200),
-                            flush(),           
-                            io:format("\n\e[45mAUTO-TDD===============\nRECOMPILING\n=======================\e[40m\n"),                 
-                            rebar_agent:do(compile),
-                            io:format("\n\e[44mAUTO-TDD===============\nRUNNING UNIT TESTS\n=======================\e[40m\n"),                         
-                            rebar_agent:do(eunit),       
-                            io:format("\n\e[42mAUTO-TDD===============\nDONE\n=======================\e[40m\n")              
+                        true ->                               
+                            Basename = filename:basename(ChangedFile),                          
+                            case re:run(Basename, ".+(_tests|_test).erl") of
+                                {match,_} -> 
+                                    io:format(?LEADER ++ ?ANSI("Reload: " ++ Basename, "36", "40")), 
+                                    [Modname,[]] = string:split(Basename, ".erl"),
+                                    code:purge(erlang:list_to_atom(Modname)),
+                                    code:delete(erlang:list_to_atom(Modname));
+                                _Other -> ok
+                            end,    
+                            io:format(?LEADER ++ ?ANSI("Recompiling", "36", "40")),     
+                            
+                            rebar_agent:do(compile), 
+                            flush(),  
+
+                            io:format(?LEADER ++ ?ANSI("Running Eunit", "93", "40")),                        
+                            io:format("\e[33m"),                        
+                            Eunit=rebar_agent:do(eunit),
+                            case Eunit of
+                                ok -> io:format(?LEADER ++ ?ANSI(" PASSED ", "92", "40"));
+                                _other1 -> io:format(?LEADER ++ ?ANSI(" FAILED ", "31", "40"))
+                            end,
+                            io:format(?ANSI("Waiting for changes ...", "90", "40"))
+                                          
                     end;
                 _ -> pass
             end

@@ -1,7 +1,7 @@
 
 {application, rebar3_autotdd,
-    [{description, "Rebar3 plugin that automatically recompiles and runs test on file change"},
-    {vsn, "1.0.0"},
+    [{description, "Rebar3 plugin that automatically recompiles and runs tests on file change"},
+    {vsn, "1.1.0"},
     {registered, []},   
     {applications,
         [kernel,
