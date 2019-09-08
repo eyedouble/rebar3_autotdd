@@ -1,5 +1,6 @@
-# Rebar3
+# rebar3_autotdd
 
+[![Hex pm](https://img.shields.io/hexpm/v/rebar3_autotdd.svg?style=flat-square&labelColor=5c676d&color=714a94)](https://hex.pm/packages/rebar3_autotdd)
 [![License](https://img.shields.io/github/license/eyedouble/rebar3_autotdd?color=007ec6&style=flat-square)](LICENSE)
 
 **A rebar3 plugin for auto running compile on source file change reloading modules in the shell.** 
